@@ -4,8 +4,8 @@ import os
 import random
 import azure.cognitiveservices.speech as speechsdk
 
-from utils import get_config_service
-from constants import DEFAULT_VOICE, DIR_AUDIO
+from utils import get_config_service, get_api_key
+from constants import DEFAULT_VOICE, SPEECH_SERVICE
 from speech.services.common import get_audio_file, get_filepath, play
 from speech.interface import SpeechInterface
 
@@ -28,6 +28,7 @@ class AzureSpeechService(SpeechInterface):
     def get_voice(self, language_code):
         voice_names = []
         voices = self.get_available_voices()
+        
         for voice in voices:
             if (voice.locale[:2] == language_code):
                 voice_names.append(voice.short_name)
@@ -42,7 +43,7 @@ class AzureSpeechService(SpeechInterface):
 
         config = get_config_service("azure")
         REGION = config["region"]
-        KEY = get_key_speech()
+        KEY = get_api_key(SPEECH_SERVICE)
 
         speech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)
         if voice:

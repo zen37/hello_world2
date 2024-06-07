@@ -15,22 +15,24 @@ def init():
 def main():
     try:
         init()
-        #return
         current_locale = locale.getlocale()
 
+        #show greeting on screen
         greeting = get_greeting(current_locale)
         print_greeting(greeting)
 
+        #speak
         language_code = current_locale[0]
         talk(language_code, greeting)
-
+        
+        #image
         country_code = get_country_code(language_code)
         prompt_text = get_prompt_image()
         prompt = prompt_text.format(greeting=greeting, country_code=country_code)
         create_image(country_code, prompt)
 
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        print(f"main() - unexpected error occurred: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:

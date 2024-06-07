@@ -68,7 +68,7 @@ class AzureImageService(ImageInterface):
             logging.error(f"Error opening the image: {e}")
 
     def create(self, country_code, prompt):
-        logging.info("Generating image...")
+        logging.info(f"Generating image...for prompt: {prompt}")
 
         image_url = self._generate_image_data(prompt)
         if image_url:

@@ -4,7 +4,6 @@ import logging
 from dotenv import load_dotenv
 import json
 import inspect
-import tiktoken
 
 from constants import (
     ENCODING, DIR_CONFIG, FILE_COMMON_CONFIG, FILE_PROMPT_IMAGE,
@@ -16,7 +15,7 @@ def set_locale(language, encoding):
     try:
         locale.setlocale(locale.LC_ALL, f'{language}.{encoding}')
     except Exception as e:
-        print(f"Error setting the locale: {e}")
+        logging.error(f"Error setting the locale: {e}")
         return None
 
 def log_function_call(func):
@@ -116,8 +115,9 @@ def configure_logging():
         format=config.get("logging_format", "%(asctime)s [%(levelname)s]: %(message)s"),
     )
 
-def tokens_count(model, text):
+"""def tokens_count(model, text):
     enc = tiktoken.encoding_for_model(model)
     print(enc)
     tokens = enc.encode(text)
     print(tokens)
+"""
